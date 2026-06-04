@@ -81,11 +81,19 @@ Student Matcher aims to bridge the gap between students and career opportunities
 * Recruiter Dashboard
 
 ---
-
 ## 📸 Screenshots
 
-Coming Soon
+### Homepage
 
+![Homepage](Assets/homepage.png)
+
+### Upload CV
+
+![Upload CV](Assets/upload-page.png)
+
+### Results
+
+![Results](Assets/results-page.png)
 ---
 
 ## 👩‍💻 Developed By
