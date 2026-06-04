@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Matcher — Find Your Career Path</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">
+        <span class="logo-mark"></span>
+        Student Matcher
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works" id="navHowItWorks">How it works</a>
+        <a href="#upload" class="nav-cta" id="navUploadBtn">Upload CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO (shown before upload)
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="heroSection">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI-powered career matching
+      </div>
+      <h1 class="hero-headline">
+        Your CV.<br />
+        <em>Matched to the right opportunity.</em>
+      </h1>
+      <p class="hero-sub">
+        Upload once. Get matched to internships and jobs instantly — with a full skill gap analysis and a personal learning roadmap.
+      </p>
+      <a href="#upload" class="hero-btn">Analyse my CV <span class="btn-arrow">→</span></a>
+    </div>
+    <div class="hero-graphic" aria-hidden="true">
+      <div class="hg-card hg-card--1">
+        <div class="hg-label">Match Score</div>
+        <div class="hg-score" id="topScore">—<span></span></div>
+        <div class="hg-bar"><div class="hg-bar-fill" id="topScoreBar" style="width:0%"></div></div>
+      </div>
+      <div class="hg-card hg-card--2">
+        <div class="hg-label">Top Match</div>
+        <div class="hg-role" id="topRole">No match yet</div>
+        <div class="hg-company" id="topCompany">Upload a CV to begin</div>
+      </div>
+      <div class="hg-card hg-card--3">
+        <div class="hg-label">Skills Detected</div>
+        <div class="hg-skills-row" id="heroSkills">
+          <span>—</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HOW IT WORKS
+  ═══════════════════════════════════════════ -->
+  <section class="how" id="how-it-works">
+    <div class="container">
+      <div class="how-header">
+        <span class="section-eyebrow">Process</span>
+        <h2 class="section-title">Three steps to clarity</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Upload your CV</h3>
+          <p>Drop your resume in PDF or Word format. Our engine reads it instantly.</p>
+        </div>
+        <div class="step-divider" aria-hidden="true"></div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>AI analyses your skills</h3>
+          <p>We extract and score every skill against thousands of live job listings.</p>
+        </div>
+        <div class="step-divider" aria-hidden="true"></div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Get matched instantly</h3>
+          <p>Ranked opportunities, skill gaps, and a personalised learning path — in seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       UPLOAD SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="upload-section" id="upload">
+    <div class="container container--narrow">
+      <div class="section-header-center">
+        <span class="section-eyebrow">Get started</span>
+        <h2 class="section-title">Upload your CV</h2>
+        <p class="section-desc">Supports PDF, DOC, and DOCX. Your data is never stored or shared.</p>
+      </div>
+
+      <div class="upload-card" id="uploadCard">
+        <input type="file" id="cvInput" accept=".pdf,.doc,.docx" hidden />
+        <div class="upload-idle" id="uploadIdle">
+          <div class="upload-icon-wrap">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+            </svg>
+          </div>
+          <p class="upload-main-text">Drop your CV here, or <button class="upload-browse-btn" id="browseBtn">browse</button></p>
+          <p class="upload-hint">PDF, DOC or DOCX · Max 10 MB</p>
+        </div>
+        <div class="upload-selected" id="uploadSelected" hidden>
+          <div class="file-row">
+            <div class="file-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <span class="file-name" id="fileName">resume.pdf</span>
+              <span class="file-size" id="fileSize">–</span>
+            </div>
+            <button class="file-remove" id="removeFile" title="Remove file">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <button class="upload-submit-btn" id="submitBtn">
+            <span id="submitLabel">Analyse CV</span>
+            <span class="btn-spinner" id="btnSpinner" hidden>
+              <svg class="spinner-svg" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2.5" stroke-dasharray="56" stroke-dashoffset="42" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       RESULTS WRAPPER — two-column dashboard
+  ═══════════════════════════════════════════ -->
+  <div class="results-wrapper" id="resultsWrapper" hidden>
+
+    <div class="dashboard-layout">
+
+      <!-- ─── LEFT COLUMN ─────────────────────── -->
+      <div class="dashboard-left">
+
+        <!-- Detected Skills -->
+        <section class="panel skills-section">
+          <div class="panel-header">
+            <div>
+              <span class="section-eyebrow">Extracted from your CV</span>
+              <h2 class="panel-title">Detected Skills</h2>
+            </div>
+            <div class="skills-count pill-count" id="skillsCount">0 skills</div>
+          </div>
+          <div class="skills-grid" id="skillsGrid"></div>
+        </section>
+
+        <!-- Dashboard Summary -->
+        <section class="dashboard-section">
+          <div class="dashboard-grid">
+            <div class="dashboard-card">
+              <span>Best Match</span>
+              <h3 id="dashBestMatch">—</h3>
+            </div>
+            <div class="dashboard-card">
+              <span>Match Score</span>
+              <h3 id="dashMatchScore">0%</h3>
+            </div>
+            <div class="dashboard-card">
+              <span>Skills Found</span>
+              <h3 id="dashSkillsFound">0</h3>
+            </div>
+            <div class="dashboard-card">
+              <span>Top Gap</span>
+              <h3 id="dashTopGap">—</h3>
+            </div>
+          </div>
+        </section>
+
+        <!-- AI Career Coach -->
+        <section class="panel coach-section">
+          <div class="panel-header">
+            <div>
+              <span class="section-eyebrow">AI-Powered Guidance</span>
+              <h2 class="panel-title">AI Career Coach</h2>
+            </div>
+          </div>
+
+          <div class="coach-body">
+            <p class="coach-title-label" id="coachTitle">Your Next Step</p>
+            <p class="coach-advice" id="coachAdvice">Upload your CV to receive personalised career advice.</p>
+
+            <div class="coach-two-col">
+              <!-- Most Useful Skills to Learn -->
+              <div class="coach-missing">
+                <h4 class="coach-sub-heading">Most Useful Skills to Learn</h4>
+                <div id="missingSkillsBadges" class="missing-skills-badges"></div>
+              </div>
+
+              <!-- Recommended Project -->
+              <div class="coach-project-box">
+                <div class="coach-project-icon" aria-hidden="true">🚀</div>
+                <div>
+                  <h4 class="coach-sub-heading">Recommended Project</h4>
+                  <p id="coachProject" class="coach-project-text">Build a project to strengthen your profile.</p>
+                  <button class="view-ideas-btn" onclick="return false;">View Project Ideas →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Learning Path badges -->
+            <h4 class="coach-sub-heading" style="margin-top:20px;">Learning Path</h4>
+            <div id="coachRecommendations" class="learning-path-badges">
+              <span class="lp-placeholder">Career recommendations will appear here.</span>
+            </div>
+
+            <!-- Roadmap -->
+            <div class="roadmap-card">
+              <h4 class="roadmap-title">AI Learning Roadmap</h4>
+              <div id="learningRoadmap"></div>
+            </div>
+
+            <!-- Courses -->
+            <div class="courses-block">
+              <h4 class="coach-sub-heading" style="margin-top:20px;">Recommended Courses</h4>
+              <div id="courseRecommendations"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Career Gap Analysis -->
+        <section class="panel gap-section">
+          <div class="panel-header">
+            <div>
+              <span class="section-eyebrow">Career Gap Analysis</span>
+              <h2 class="panel-title">Skills That Unlock More Opportunities</h2>
+            </div>
+          </div>
+
+          <div class="gap-two-col">
+            <div class="gap-left">
+              <p class="gap-sub">Most common missing skills</p>
+              <div id="gapSkillsList"></div>
+            </div>
+            <div class="gap-insight-box">
+              <div class="insight-icon" aria-hidden="true">💡</div>
+              <strong>Insight</strong>
+              <p id="gapInsight">Upload your CV to see the most common missing skills.</p>
+              <button class="view-ideas-btn insight-btn" onclick="return false;">View All Skill Insights →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Job Matches -->
+        <section class="panel jobs-section">
+          <div class="panel-header">
+            <div>
+              <span class="section-eyebrow">Ranked by compatibility</span>
+              <h2 class="panel-title">Your Matches</h2>
+            </div>
+            <span class="pill-count jobs-count" id="jobsCount">0 opportunities</span>
+          </div>
+
+          <!-- Table header -->
+          <div class="jobs-table-head">
+            <span>Job Title</span>
+            <span>Company</span>
+            <span>Match</span>
+            <span>Type</span>
+            <span>Location</span>
+            <span></span>
+          </div>
+          <div id="jobsGrid" class="jobs-table-body"></div>
+        </section>
+
+        <!-- CV Text -->
+        <section class="panel cv-section">
+          <details class="cv-details">
+            <summary class="cv-summary">
+              <span class="cv-summary-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="cv-summary-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                </svg>
+                Extracted CV Text
+              </span>
+              <span class="cv-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="cv-text-body" id="cvText"></div>
+          </details>
+        </section>
+
+        <!-- Reset -->
+        <div class="reset-row">
+          <button class="reset-btn" id="resetBtn">Upload a different CV</button>
+        </div>
+
+      </div><!-- /dashboard-left -->
+
+      <!-- ─── RIGHT SIDEBAR ────────────────────── -->
+      <aside class="dashboard-right">
+
+        <!-- Top Match Card -->
+        <div class="sidebar-card sidebar-top-match">
+          <div class="sidebar-card-header">
+            <span class="sidebar-icon" aria-hidden="true">🏆</span>
+            <strong>Your Top Match</strong>
+          </div>
+
+          <div class="top-match-body">
+            <!-- Score ring -->
+            <div class="tm-score-wrap">
+              <div class="score-ring-lg" id="tmScoreRing">
+                <svg viewBox="0 0 80 80" class="score-svg-lg">
+                  <circle cx="40" cy="40" r="34" class="score-track-lg"/>
+                  <circle cx="40" cy="40" r="34" class="score-fill-lg" id="tmScoreFill" style="stroke-dashoffset:214"/>
+                </svg>
+                <div class="tm-score-inner">
+                  <span class="tm-score-val" id="tmScoreVal">—</span>
+                  <span class="tm-score-sub">Match</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tm-info">
+              <h3 class="tm-title" id="tmTitle">—</h3>
+              <p class="tm-company">
+                <span class="tm-icon" aria-hidden="true">🏢</span>
+                <span id="tmCompany">—</span>
+              </p>
+              <p class="tm-location">
+                <span class="tm-icon" aria-hidden="true">📍</span>
+                <span id="tmLocation">Remote</span>
+                <span class="tm-type-badge" id="tmTypeBadge">Internship</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Why you matched / Skills to improve -->
+          <div class="tm-skills-grid">
+            <div class="tm-skills-col tm-matched-col">
+              <div class="tm-col-label tm-col-label--match">Why you matched</div>
+              <div id="tmMatchedSkills" class="tm-skill-list"></div>
+            </div>
+            <div class="tm-skills-col tm-gap-col">
+              <div class="tm-col-label tm-col-label--gap">Skills to Improve</div>
+              <div id="tmGapSkills" class="tm-skill-list"></div>
+            </div>
+          </div>
+
+          <div class="tm-actions">
+            <button class="tm-btn tm-btn--primary" onclick="return false;">View Opportunity ↗</button>
+            <button class="tm-btn tm-btn--ghost" onclick="return false;">🔖 Save Job</button>
+          </div>
+        </div>
+
+        <!-- Recommended Courses Sidebar -->
+        <div class="sidebar-card sidebar-courses">
+          <div class="sidebar-card-header">
+            <span class="sidebar-icon" aria-hidden="true">📚</span>
+            <strong>Recommended Courses</strong>
+          </div>
+          <div id="sidebarCourses" class="sidebar-course-list"></div>
+          <button class="view-more-btn" onclick="return false;">View More Courses →</button>
+        </div>
+
+        <!-- Resume Tips Sidebar -->
+        <div class="sidebar-card sidebar-tips">
+          <div class="sidebar-card-header">
+            <span class="sidebar-icon" aria-hidden="true">⭐</span>
+            <strong>Resume Improvement Tips</strong>
+          </div>
+          <div id="sidebarTips" class="sidebar-tips-list">
+            <div class="tip-item">
+              <span class="tip-star" aria-hidden="true">☆</span>
+              <span>Add projects that demonstrate your core technical skills.</span>
+            </div>
+            <div class="tip-item">
+              <span class="tip-star" aria-hidden="true">☆</span>
+              <span>Include metrics and results in your project descriptions.</span>
+            </div>
+            <div class="tip-item">
+              <span class="tip-star" aria-hidden="true">☆</span>
+              <span>Highlight any relevant coursework or certifications.</span>
+            </div>
+          </div>
+          <button class="view-more-btn" onclick="return false;">View All Tips →</button>
+        </div>
+
+      </aside><!-- /dashboard-right -->
+
+    </div><!-- /dashboard-layout -->
+  </div><!-- /resultsWrapper -->
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-logo">
+        <span class="logo-mark logo-mark--sm"></span>
+        Student Matcher
+      </span>
+      <span class="footer-copy">© 2025 Student Matcher. Built for students, by builders.</span>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════ -->
+  <script>
+  (() => {
+    const ENDPOINT = 'http://127.0.0.1:5000/upload-cv';
+
+    // ── Element refs ──────────────────────────────────────────────
+    const uploadCard      = document.getElementById('uploadCard');
+    const cvInput         = document.getElementById('cvInput');
+    const browseBtn       = document.getElementById('browseBtn');
+    const uploadIdle      = document.getElementById('uploadIdle');
+    const uploadSelected  = document.getElementById('uploadSelected');
+    const fileName        = document.getElementById('fileName');
+    const fileSize        = document.getElementById('fileSize');
+    const removeFile      = document.getElementById('removeFile');
+    const submitBtn       = document.getElementById('submitBtn');
+    const submitLabel     = document.getElementById('submitLabel');
+    const btnSpinner      = document.getElementById('btnSpinner');
+    btnSpinner.hidden     = true;
+    const resultsWrapper  = document.getElementById('resultsWrapper');
+    const skillsGrid      = document.getElementById('skillsGrid');
+    const skillsCount     = document.getElementById('skillsCount');
+    const jobsGrid        = document.getElementById('jobsGrid');
+    const jobsCount       = document.getElementById('jobsCount');
+    const cvText          = document.getElementById('cvText');
+    const resetBtn        = document.getElementById('resetBtn');
+
+    let selectedFile = null;
+
+    // ── Drag & Drop ───────────────────────────────────────────────
+    ['dragover','dragenter'].forEach(evt =>
+      uploadCard.addEventListener(evt, e => { e.preventDefault(); uploadCard.classList.add('drag-over'); }));
+    ['dragleave','dragend','drop'].forEach(evt =>
+      uploadCard.addEventListener(evt, e => { e.preventDefault(); uploadCard.classList.remove('drag-over'); }));
+    uploadCard.addEventListener('drop', e => { if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+
+    browseBtn.addEventListener('click', () => cvInput.click());
+    cvInput.addEventListener('change', () => { if (cvInput.files[0]) setFile(cvInput.files[0]); });
+
+    function setFile(file) {
+      selectedFile = file;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatBytes(file.size);
+      uploadIdle.hidden = true;
+      uploadSelected.hidden = false;
+    }
+
+    function formatBytes(b) {
+      if (b < 1024) return b + ' B';
+      if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+      return (b / 1048576).toFixed(1) + ' MB';
+    }
+
+    removeFile.addEventListener('click', () => {
+      selectedFile = null; cvInput.value = '';
+      uploadSelected.hidden = true; uploadIdle.hidden = false;
+    });
+
+    // ── Submit ────────────────────────────────────────────────────
+    submitBtn.addEventListener('click', async () => {
+      if (!selectedFile) return;
+      setLoading(true);
+      const fd = new FormData();
+      fd.append('cv', selectedFile);
+      try {
+        const res = await fetch(ENDPOINT, { method: 'POST', body: fd });
+        if (!res.ok) throw new Error(`Server error ${res.status}`);
+        const data = await res.json();
+        renderResults(data);
+      } catch (err) {
+        alert('Something went wrong: ' + err.message);
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    function setLoading(on) {
+      submitBtn.disabled = on;
+      submitLabel.textContent = on ? 'Analysing…' : 'Analyse CV';
+      btnSpinner.hidden = !on;
+    }
+
+    // ── Render Results ────────────────────────────────────────────
+    function renderResults(data) {
+      const skills = data.skills || [];
+      const jobs   = data.jobs   || [];
+
+      // --- Skills ---
+      skillsCount.textContent = skills.length + (skills.length === 1 ? ' skill' : ' skills');
+      skillsGrid.innerHTML = '';
+      skills.forEach((s, i) => {
+        const el = document.createElement('span');
+        el.className = 'skill-badge';
+        el.textContent = s;
+        el.style.animationDelay = (i * 40) + 'ms';
+        skillsGrid.appendChild(el);
+      });
+
+      // --- Dashboard summary ---
+      const topJob = jobs[0] || null;
+      document.getElementById('dashBestMatch').textContent   = topJob ? truncate(topJob.title, 16) : '—';
+      document.getElementById('dashMatchScore').textContent  = topJob ? topJob.match_score + '%' : '0%';
+      document.getElementById('dashSkillsFound').textContent = skills.length;
+      document.getElementById('dashTopGap').textContent      = topJob && topJob.missing_skills[0] ? topJob.missing_skills[0] : '—';
+
+      // --- Hero mini-cards ---
+      if (topJob) {
+        document.getElementById('topScore').innerHTML = `${topJob.match_score}<span>%</span>`;
+        document.getElementById('topScoreBar').style.width = topJob.match_score + '%';
+        document.getElementById('topRole').textContent    = topJob.title;
+        document.getElementById('topCompany').textContent = topJob.company;
+        const hs = document.getElementById('heroSkills');
+        hs.innerHTML = '';
+        skills.slice(0, 3).forEach(s => {
+          const sp = document.createElement('span'); sp.textContent = s; hs.appendChild(sp);
+        });
+      }
+
+      // --- Gap Analysis ---
+      const gapSkillsList = document.getElementById('gapSkillsList');
+      const gapInsight    = document.getElementById('gapInsight');
+      const missingCounts = {};
+      jobs.forEach(j => j.missing_skills.forEach(s => { missingCounts[s] = (missingCounts[s] || 0) + 1; }));
+      const topMissing = Object.entries(missingCounts).sort((a,b) => b[1]-a[1]).slice(0, 5);
+      gapSkillsList.innerHTML = '';
+      const totalJobs = jobs.length || 1;
+      topMissing.forEach(([skill, count], idx) => {
+        const pct = Math.round((count / totalJobs) * 100);
+        const row = document.createElement('div');
+        row.className = 'gap-skill-row';
+        row.innerHTML = `
+          <span class="gap-skill-rank">${idx + 1}.</span>
+          <span class="gap-skill-name">${escHtml(skill)}</span>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:${pct}%"></div></div>
+          <span class="gap-pct">${pct}%</span>`;
+        gapSkillsList.appendChild(row);
+      });
+      if (topMissing.length > 0) {
+        gapInsight.textContent = `Improving these skills could unlock ${topMissing.length > 2 ? topMissing.length : 'more'} matching opportunities for you.`;
+      }
+
+      // --- AI Career Coach ---
+      const courseMap = {
+        'SQL': { name: 'SQL for Data Analysis', provider: 'Coursera', duration: '4 hours', color: '#1565c0' },
+        'Excel': { name: 'Excel Skills for Business', provider: 'Coursera', duration: '6 hours', color: '#1b5e20' },
+        'Data Analysis': { name: 'Google Data Analytics Certificate', provider: 'Coursera', duration: '8 weeks', color: '#ea4335' },
+        'JavaScript': { name: 'JavaScript Essentials', provider: 'Cisco', duration: '10 hours', color: '#f7df1e' },
+        'Git': { name: 'Git & GitHub Crash Course', provider: 'Udemy', duration: '3 hours', color: '#f05032' },
+        'Python': { name: 'Python for Everybody', provider: 'Coursera', duration: '6 weeks', color: '#3776ab' },
+        'Machine Learning': { name: 'Machine Learning Specialization', provider: 'Coursera', duration: '3 months', color: '#ff6f00' },
+        'Statistics': { name: 'Statistics with Python', provider: 'Coursera', duration: '5 weeks', color: '#7b1fa2' },
+      };
+
+      if (topJob) {
+        document.getElementById('coachTitle').textContent   = `Path to ${topJob.title}`;
+        document.getElementById('coachAdvice').textContent  = `You already match ${topJob.match_score}% of the requirements for ${topJob.title} at ${topJob.company}. Focus on closing the remaining skill gaps to improve your chances.`;
+        document.getElementById('coachProject').textContent = topJob.missing_skills[0]
+          ? `Build a project using ${topJob.missing_skills[0]} to strengthen your profile.`
+          : 'Build a portfolio project showcasing your strongest skills.';
+
+        const coachList  = document.getElementById('coachRecommendations');
+        const missBadges = document.getElementById('missingSkillsBadges');
+        coachList.innerHTML  = '';
+        missBadges.innerHTML = '';
+
+        topJob.missing_skills.forEach(skill => {
+          const pb = document.createElement('span');
+          pb.className = 'learning-path-badge'; pb.textContent = skill;
+          coachList.appendChild(pb);
+
+          const mb = document.createElement('span');
+          mb.className = 'missing-skill-btn'; mb.textContent = skill;
+          missBadges.appendChild(mb);
+        });
+
+        // Roadmap
+        const roadmap = document.getElementById('learningRoadmap');
+        const m = topJob.missing_skills;
+        roadmap.innerHTML = `
+          <div class="roadmap-step"><span class="rs-num">1</span><span>Learn ${m[0] || 'a new skill'}</span></div>
+          <div class="roadmap-step"><span class="rs-num">2</span><span>Practice ${m[1] || 'the fundamentals'}</span></div>
+          <div class="roadmap-step"><span class="rs-num">3</span><span>Build a project using ${m[0] || 'your new skills'}</span></div>`;
+
+        // Courses (left panel)
+        const courseRecs = document.getElementById('courseRecommendations');
+        courseRecs.innerHTML = '';
+        topJob.missing_skills.slice(0, 3).forEach(skill => {
+          const c = courseMap[skill] || { name: skill + ' Fundamentals', provider: 'Online', duration: 'Self-paced', color: '#666' };
+          const div = document.createElement('div');
+          div.className = 'course-item';
+          div.innerHTML = `<span class="course-dot" style="background:${c.color}"></span><span>${c.name} — <em>${c.provider}</em></span>`;
+          courseRecs.appendChild(div);
+        });
+
+        // --- Sidebar: Top Match ---
+        renderSidebarTopMatch(topJob, skills);
+
+        // --- Sidebar: Courses ---
+        renderSidebarCourses(topJob.missing_skills, courseMap);
+
+        // --- Sidebar: Tips ---
+        renderSidebarTips(skills);
+      }
+
+      // --- Jobs table ---
+      jobsCount.textContent = jobs.length + (jobs.length === 1 ? ' opportunity' : ' opportunities');
+      jobsGrid.innerHTML = '';
+      jobs.forEach((job, i) => jobsGrid.appendChild(buildJobRow(job, i)));
+
+      // --- CV Text ---
+      cvText.textContent = data.extracted_text || 'No text extracted.';
+
+      // --- Show results ---
+      document.querySelector('.upload-section').style.display = 'none';
+      document.getElementById('heroSection').style.display   = 'none';
+      document.querySelector('.how').style.display           = 'none';
+      resultsWrapper.hidden = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Sidebar Renderers ─────────────────────────────────────────
+    function renderSidebarTopMatch(job, skills) {
+      const score      = job.match_score ?? 0;
+      const circumf    = 2 * Math.PI * 34; // r=34
+      const offset     = circumf - (score / 100) * circumf;
+
+      document.getElementById('tmTitle').textContent   = job.title;
+      document.getElementById('tmCompany').textContent = job.company;
+      document.getElementById('tmScoreVal').textContent = score + '%';
+      document.getElementById('tmScoreFill').style.strokeDashoffset = offset;
+      document.getElementById('tmScoreFill').style.strokeDasharray  = circumf;
+
+      const scoreClass = score >= 75 ? 'score--high' : score >= 50 ? 'score--mid' : 'score--low';
+      document.getElementById('tmScoreRing').className = 'score-ring-lg ' + scoreClass;
+
+      const matched = document.getElementById('tmMatchedSkills');
+      matched.innerHTML = '';
+      (job.matched_skills || []).forEach(s => {
+        const d = document.createElement('div');
+        d.className = 'tm-skill-row tm-skill-row--match';
+        d.innerHTML = `<span class="tm-check">✓</span> ${escHtml(s)}`;
+        matched.appendChild(d);
+      });
+
+      const gaps = document.getElementById('tmGapSkills');
+      gaps.innerHTML = '';
+      (job.missing_skills || []).forEach(s => {
+        const d = document.createElement('div');
+        d.className = 'tm-skill-row tm-skill-row--gap';
+        d.innerHTML = `<span class="tm-x">✕</span> ${escHtml(s)}`;
+        gaps.appendChild(d);
+      });
+    }
+
+    function renderSidebarCourses(missingSkills, courseMap) {
+      const el = document.getElementById('sidebarCourses');
+      el.innerHTML = '';
+      missingSkills.slice(0, 3).forEach(skill => {
+        const c = courseMap[skill] || { name: skill + ' Fundamentals', provider: 'Online', duration: 'Self-paced', color: '#18a06a' };
+        const row = document.createElement('div');
+        row.className = 'sidebar-course-row';
+        row.innerHTML = `
+          <div class="sc-icon" style="background:${c.color}22;color:${c.color}">
+            ${skill.charAt(0).toUpperCase()}
+          </div>
+          <div class="sc-info">
+            <span class="sc-name">${c.name}</span>
+            <span class="sc-meta">${c.provider}</span>
+          </div>
+          <div class="sc-right">
+            <span class="sc-dur">${c.duration}</span>
+            <button class="sc-btn" onclick="return false;">View</button>
+          </div>`;
+        el.appendChild(row);
+      });
+    }
+
+    function renderSidebarTips(skills) {
+      const el = document.getElementById('sidebarTips');
+      const tips = [
+        `Add projects that demonstrate ${skills[0] || 'technical'} and ${skills[1] || 'core'} skills.`,
+        'Include metrics and results in your project descriptions.',
+        'Highlight any relevant coursework or certifications.',
+      ];
+      el.innerHTML = '';
+      tips.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'tip-item';
+        div.innerHTML = `<span class="tip-star" aria-hidden="true">☆</span><span>${t}</span>`;
+        el.appendChild(div);
+      });
+    }
+
+    // ── Job Row (table style) ─────────────────────────────────────
+    function buildJobRow(job, idx) {
+      const score      = job.match_score ?? 0;
+      const scoreClass = score >= 75 ? 'score--high' : score >= 50 ? 'score--mid' : 'score--low';
+      const row = document.createElement('div');
+      row.className = 'job-table-row';
+      row.style.animationDelay = (idx * 60) + 'ms';
+      row.innerHTML = `
+        <span class="jtr-title">${escHtml(job.title)}</span>
+        <span class="jtr-company">${escHtml(job.company)}</span>
+        <span class="jtr-score ${scoreClass}">${score}%</span>
+        <span class="jtr-type">Internship</span>
+        <span class="jtr-loc">Remote</span>
+        <button class="jtr-save" title="Save job" onclick="return false;">🔖</button>`;
+      // Expand on click to show skill detail
+      row.addEventListener('click', (e) => {
+        if (e.target.classList.contains('jtr-save')) return;
+        const existing = row.nextElementSibling;
+        if (existing && existing.classList.contains('job-expand')) {
+          existing.remove(); row.classList.remove('row--expanded'); return;
+        }
+        row.classList.add('row--expanded');
+        const expand = document.createElement('div');
+        expand.className = 'job-expand';
+        const matched = (job.matched_skills || []).map(s => `<span class="skill-tag skill-tag--match">${escHtml(s)}</span>`).join('');
+        const missing = (job.missing_skills || []).map(s => `<span class="skill-tag skill-tag--gap">${escHtml(s)}</span>`).join('');
+        expand.innerHTML = `
+          <div class="expand-inner">
+            ${matched ? `<div class="expand-group"><span class="eg-label eg-label--match">Matched</span><div class="eg-tags">${matched}</div></div>` : ''}
+            ${missing ? `<div class="expand-group"><span class="eg-label eg-label--gap">Gap</span><div class="eg-tags">${missing}</div></div>` : ''}
+            ${missing ? `<p class="expand-tip">Upskill in ${(job.missing_skills||[]).join(', ')} to improve this match.</p>` : `<p class="expand-tip expand-tip--ready">You have all required skills for this role.</p>`}
+          </div>`;
+        row.after(expand);
+      });
+      return row;
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────
+    function escHtml(str) {
+      const d = document.createElement('div');
+      d.appendChild(document.createTextNode(String(str)));
+      return d.innerHTML;
+    }
+    function truncate(str, n) { return str.length > n ? str.slice(0, n) + '…' : str; }
+
+    // ── Reset ─────────────────────────────────────────────────────
+    resetBtn.addEventListener('click', () => {
+      resultsWrapper.hidden = true;
+      document.querySelector('.upload-section').style.display = '';
+      document.getElementById('heroSection').style.display   = '';
+      document.querySelector('.how').style.display           = '';
+      selectedFile = null; cvInput.value = '';
+      uploadSelected.hidden = true; uploadIdle.hidden = false;
+      skillsGrid.innerHTML = ''; jobsGrid.innerHTML = ''; cvText.textContent = '';
+      document.getElementById('upload').scrollIntoView({ behavior: 'smooth' });
+    });
+  })();
+  </script>
+</body>
+</html>
