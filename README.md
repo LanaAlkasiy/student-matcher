@@ -1,39 +1,95 @@
 # 🚀 Student Matcher
 
-Student Matcher is an AI-powered platform that helps students discover internships, jobs, training programs, and graduate opportunities based on their skills, experience, and career goals.
+<p align="center">
+  <strong>AI-Powered Career Matching Platform for Students</strong>
+</p>
 
-## ✨ Features
+<p align="center">
+  Discover internships, jobs, training programs, and graduate opportunities tailored to your skills and experience.
+</p>
 
-- CV Upload & Analysis
-- Skill Extraction
-- Internship & Job Matching
-- AI Match Scores
-- Missing Skills Detection
-- Career Gap Analysis
-- Personalized Learning Recommendations
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask">
+  <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+</p>
+
+---
+
+## 📖 Overview
+
+Student Matcher is an AI-powered platform designed to help students discover career opportunities that align with their skills, experience, and interests.
+
+Users can upload a CV and receive personalized recommendations for internships, jobs, training programs, and graduate opportunities.
+
+---
+
+## ✨ Key Features
+
+### 📄 CV Analysis
+
+* Upload and analyze resumes
+* Extract skills automatically
+* Generate career insights
+
+### 🎯 AI Career Matching
+
+* Match students with relevant opportunities
+* AI-powered match scores
+* Explain why a role is a good fit
+
+### 📈 Career Gap Analysis
+
+* Identify missing skills
+* Highlight growth opportunities
+* Recommend learning paths
+
+### 🎓 Personalized Learning
+
+* Recommend courses based on skill gaps
+* Support career development planning
+
+---
 
 ## 🛠️ Tech Stack
 
-- Python
-- Flask
-- HTML
-- CSS
-- JavaScript
-- Git & GitHub
+| Technology | Purpose            |
+| ---------- | ------------------ |
+| Python     | Backend Logic      |
+| Flask      | Web Framework      |
+| HTML       | Frontend Structure |
+| CSS        | Styling            |
+| JavaScript | Interactivity      |
+| GitHub     | Version Control    |
 
-## 🎯 Project Goal
+---
 
-The goal of Student Matcher is to help students make informed career decisions by providing personalized recommendations and highlighting skills that can unlock more opportunities.
+## 🎯 Project Vision
 
-## 🔮 Future Improvements
+Student Matcher aims to bridge the gap between students and career opportunities by providing intelligent recommendations and actionable career insights.
 
-- LinkedIn Profile Integration
-- Real-Time Job APIs
-- AI Career Assistant
-- Advanced Recommendation Engine
+---
 
-## 👩‍💻 Author
+## 🚧 Planned Features
 
-Lana Alkasiy
+* LinkedIn Profile Integration
+* Real-Time Internship APIs
+* AI Career Coach
+* Advanced Skill Gap Analysis
+* Recruiter Dashboard
+
+---
+
+## 📸 Screenshots
+
+Coming Soon
+
+---
+
+## 👩‍💻 Developed By
+
+**Lana Alkaisy**
 
 For questions, feedback, or collaboration opportunities, feel free to connect via LinkedIn.
