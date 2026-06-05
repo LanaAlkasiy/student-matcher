@@ -3,6 +3,7 @@ from flask_cors import CORS
 from cv_parser import extract_text_from_pdf
 from matcher import extract_skills, match_jobs
 from jobs import jobs
+from job_api import get_real_jobs
 import os 
 
 
@@ -31,7 +32,8 @@ def upload_cv():
     file_bytes = cv_file.read()
     extracted_text = extract_text_from_pdf(file_bytes)
     skills = extract_skills(extracted_text)
-    matched_jobs = match_jobs(skills, jobs)
+    real_jobs = get_real_jobs(skills)
+    matched_jobs = match_jobs(skills, real_jobs)
     
     return jsonify({
     "message": "CV uploaded successfully",
@@ -40,7 +42,5 @@ def upload_cv():
     "skills": skills,
     "jobs": matched_jobs
 })
-
-
 if __name__ == "__main__":
     app.run(debug=True)
