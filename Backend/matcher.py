@@ -64,7 +64,8 @@ def match_jobs(user_skills, jobs):
             "company": job["company"],
             "match_score": match_score,
             "matched_skills": matched_skills,
-            "missing_skills": missing_skills
+            "missing_skills": missing_skills,
+            "url": job.get("url", "#")
         })
 
     matched_jobs.sort(key=lambda job: job["match_score"], reverse=True)

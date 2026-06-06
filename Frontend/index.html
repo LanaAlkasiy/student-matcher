@@ -363,7 +363,7 @@
           </div>
 
           <div class="tm-actions">
-            <button class="tm-btn tm-btn--primary" onclick="return false;">View Opportunity ↗</button>
+            <button class="tm-btn tm-btn--primary" id="viewTopOpportunityBtn">View Opportunity ↗</button>
             <button class="tm-btn tm-btn--ghost" onclick="return false;">🔖 Save Job</button>
           </div>
         </div>
@@ -616,6 +616,14 @@
 
         // --- Sidebar: Top Match ---
         renderSidebarTopMatch(topJob, skills);
+        const viewBtn = document.getElementById("viewTopOpportunityBtn");
+        viewBtn.onclick = () => {
+        if (topJob.url && topJob.url !== "#") {
+            window.open(topJob.url, "_blank");
+        } else {
+            alert("No application link found for this job.");
+        }
+        };
 
         // --- Sidebar: Courses ---
         renderSidebarCourses(topJob.missing_skills, courseMap);
@@ -715,40 +723,68 @@
 
     // ── Job Row (table style) ─────────────────────────────────────
     function buildJobRow(job, idx) {
-      const score      = job.match_score ?? 0;
-      const scoreClass = score >= 75 ? 'score--high' : score >= 50 ? 'score--mid' : 'score--low';
-      const row = document.createElement('div');
-      row.className = 'job-table-row';
-      row.style.animationDelay = (idx * 60) + 'ms';
-      row.innerHTML = `
-        <span class="jtr-title">${escHtml(job.title)}</span>
-        <span class="jtr-company">${escHtml(job.company)}</span>
-        <span class="jtr-score ${scoreClass}">${score}%</span>
-        <span class="jtr-type">Internship</span>
-        <span class="jtr-loc">Remote</span>
-        <button class="jtr-save" title="Save job" onclick="return false;">🔖</button>`;
-      // Expand on click to show skill detail
-      row.addEventListener('click', (e) => {
-        if (e.target.classList.contains('jtr-save')) return;
-        const existing = row.nextElementSibling;
-        if (existing && existing.classList.contains('job-expand')) {
-          existing.remove(); row.classList.remove('row--expanded'); return;
-        }
-        row.classList.add('row--expanded');
-        const expand = document.createElement('div');
-        expand.className = 'job-expand';
-        const matched = (job.matched_skills || []).map(s => `<span class="skill-tag skill-tag--match">${escHtml(s)}</span>`).join('');
-        const missing = (job.missing_skills || []).map(s => `<span class="skill-tag skill-tag--gap">${escHtml(s)}</span>`).join('');
-        expand.innerHTML = `
-          <div class="expand-inner">
-            ${matched ? `<div class="expand-group"><span class="eg-label eg-label--match">Matched</span><div class="eg-tags">${matched}</div></div>` : ''}
-            ${missing ? `<div class="expand-group"><span class="eg-label eg-label--gap">Gap</span><div class="eg-tags">${missing}</div></div>` : ''}
-            ${missing ? `<p class="expand-tip">Upskill in ${(job.missing_skills||[]).join(', ')} to improve this match.</p>` : `<p class="expand-tip expand-tip--ready">You have all required skills for this role.</p>`}
-          </div>`;
-        row.after(expand);
-      });
-      return row;
-    }
+        const score = job.match_score ?? 0;
+        const scoreClass = score >= 75 ? 'score--high' : score >= 50 ? 'score--mid' : 'score--low';
+      
+        const row = document.createElement('div');
+        row.className = 'job-table-row';
+        row.style.animationDelay = (idx * 60) + 'ms';
+      
+        row.innerHTML = `
+          <span class="jtr-title">${escHtml(job.title)}</span>
+          <span class="jtr-company">${escHtml(job.company)}</span>
+          <span class="jtr-score ${scoreClass}">${score}%</span>
+          <span class="jtr-type">Internship</span>
+          <span class="jtr-loc">Remote</span>
+          <button class="jtr-save" title="Open Job">↗</button>
+        `;
+      
+        const openBtn = row.querySelector('.jtr-save');
+      
+        openBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+      
+          if (job.url) {
+            window.open(job.url, '_blank');
+          }
+        });
+      
+        row.addEventListener('click', (e) => {
+          if (e.target.classList.contains('jtr-save')) return;
+      
+          const existing = row.nextElementSibling;
+          if (existing && existing.classList.contains('job-expand')) {
+            existing.remove();
+            row.classList.remove('row--expanded');
+            return;
+          }
+      
+          row.classList.add('row--expanded');
+      
+          const expand = document.createElement('div');
+          expand.className = 'job-expand';
+      
+          const matched = (job.matched_skills || [])
+            .map(s => `<span class="skill-tag skill-tag--match">${escHtml(s)}</span>`)
+            .join('');
+      
+          const missing = (job.missing_skills || [])
+            .map(s => `<span class="skill-tag skill-tag--gap">${escHtml(s)}</span>`)
+            .join('');
+      
+          expand.innerHTML = `
+            <div class="expand-inner">
+              ${matched ? `<div class="expand-group"><span class="eg-label eg-label--match">Matched</span><div class="eg-tags">${matched}</div></div>` : ''}
+              ${missing ? `<div class="expand-group"><span class="eg-label eg-label--gap">Gap</span><div class="eg-tags">${missing}</div></div>` : ''}
+              ${missing ? `<p class="expand-tip">Upskill in ${(job.missing_skills || []).join(', ')} to improve this match.</p>` : `<p class="expand-tip expand-tip--ready">You have all required skills for this role.</p>`}
+            </div>
+          `;
+      
+          row.after(expand);
+        });
+      
+        return row;
+      }
 
     // ── Helpers ───────────────────────────────────────────────────
     function escHtml(str) {
