@@ -2,7 +2,7 @@ import requests
 
 API_KEY = "e4074e5b27msh1e8283d0b61197ap134ec8jsnfad211fef717"
 
-def get_real_jobs(user_skills):
+def get_real_jobs(user_skills, country="us"):
     query = "software engineering internship"
 
     if "Data Analysis" in user_skills or "SQL" in user_skills:
@@ -23,7 +23,7 @@ def get_real_jobs(user_skills):
         "query": query,
         "page": "1",
         "num_pages": "1",
-        "country": "us",
+        "country": country,
         "date_posted": "week"
     }
 
