@@ -1,7 +1,7 @@
+import os
 import requests
 
-API_KEY = "e4074e5b27msh1e8283d0b61197ap134ec8jsnfad211fef717"
-
+API_KEY = os.environ.get("RAPIDAPI_KEY")
 def get_real_jobs(user_skills, country="us"):
     query = "software engineering internship"
 

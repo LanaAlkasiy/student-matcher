@@ -1,0 +1,28 @@
+{
+    "Python": { "name": "Python for Everybody", "provider": "Coursera", "duration": "6 weeks", "color": "#3776ab" },
+    "SQL": { "name": "SQL for Data Analysis", "provider": "Coursera", "duration": "4 hours", "color": "#1565c0" },
+    "Excel": { "name": "Excel Skills for Business", "provider": "Coursera", "duration": "6 hours", "color": "#1b5e20" },
+    "Data Analysis": { "name": "Google Data Analytics Certificate", "provider": "Coursera", "duration": "8 weeks", "color": "#ea4335" },
+    "JavaScript": { "name": "JavaScript Essentials", "provider": "Cisco Networking Academy", "duration": "10 hours", "color": "#f7df1e" },
+    "TypeScript": { "name": "Understanding TypeScript", "provider": "Udemy", "duration": "12 hours", "color": "#3178c6" },
+    "Git": { "name": "Git & GitHub Crash Course", "provider": "Udemy", "duration": "3 hours", "color": "#f05032" },
+    "GitHub": { "name": "GitHub Actions & Collaboration", "provider": "GitHub Skills", "duration": "2 hours", "color": "#24292e" },
+    "Machine Learning": { "name": "Machine Learning Specialization", "provider": "Coursera (DeepLearning.AI)", "duration": "3 months", "color": "#ff6f00" },
+    "AI": { "name": "AI For Everyone", "provider": "Coursera (DeepLearning.AI)", "duration": "6 hours", "color": "#6f42c1" },
+    "HTML": { "name": "HTML, CSS, and Javascript for Web Developers", "provider": "Coursera", "duration": "5 weeks", "color": "#e34f26" },
+    "CSS": { "name": "Advanced CSS and Sass", "provider": "Udemy", "duration": "28 hours", "color": "#1572b6" },
+    "React": { "name": "React - The Complete Guide", "provider": "Udemy", "duration": "48 hours", "color": "#61dafb" },
+    "Flask": { "name": "REST APIs with Flask and Python", "provider": "Udemy", "duration": "9 hours", "color": "#000000" },
+    "Node.js": { "name": "Node.js, Express, MongoDB & More", "provider": "Udemy", "duration": "42 hours", "color": "#3c873a" },
+    "AWS": { "name": "AWS Cloud Practitioner Essentials", "provider": "AWS Skill Builder", "duration": "6 hours", "color": "#ff9900" },
+    "Azure": { "name": "Azure Fundamentals (AZ-900)", "provider": "Microsoft Learn", "duration": "5 hours", "color": "#0078d4" },
+    "Linux": { "name": "Linux Command Line Basics", "provider": "Udacity", "duration": "4 hours", "color": "#fcc624" },
+    "Security": { "name": "Foundations of Cybersecurity", "provider": "Coursera (Google)", "duration": "5 weeks", "color": "#d32f2f" },
+    "Figma": { "name": "Figma UI/UX Design Essentials", "provider": "Coursera", "duration": "1 week", "color": "#a259ff" },
+    "UI Design": { "name": "Google UX Design Certificate", "provider": "Coursera", "duration": "6 months", "color": "#ea4335" },
+    "Prototyping": { "name": "Design and Prototype a Mobile App", "provider": "Coursera", "duration": "1 week", "color": "#a259ff" },
+    "Prompt Engineering": { "name": "ChatGPT Prompt Engineering for Developers", "provider": "DeepLearning.AI", "duration": "1.5 hours", "color": "#00a67e" },
+    "REST API": { "name": "API Design and Fundamentals of Google APIs", "provider": "Coursera", "duration": "1 week", "color": "#005571" },
+    "Automation": { "name": "Automating Tasks with Python", "provider": "Coursera", "duration": "4 weeks", "color": "#3776ab" }
+  }
+  

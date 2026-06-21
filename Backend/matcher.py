@@ -1,33 +1,23 @@
-import re
-
-from skills import ALL_SKILLS, normalize, to_display
+from skills import find_skills_in_text, normalize, to_display
 
 
 def extract_skills(cv_text):
-    """Find which known skills appear in the CV text.
+    """Find which known skills (and synonyms) appear in the CV text.
 
-    Returns the skills in their canonical display casing (e.g. "SQL",
-    "JavaScript") so they line up exactly with the skill names coming back
-    from job postings.
+    Returns canonical display-cased names (e.g. "SQL", "Machine Learning")
+    so they line up exactly with the skill names coming back from job
+    postings. The actual scanning logic now lives in skills.py so CVs and
+    job descriptions are always parsed the same way.
     """
-    found_skills = []
-    cv_text_lower = cv_text.lower()
-
-    for skill in ALL_SKILLS:
-        pattern = r"\b" + re.escape(skill.lower()) + r"\b"
-
-        if re.search(pattern, cv_text_lower):
-            found_skills.append(skill)
-
-    return found_skills
+    return find_skills_in_text(cv_text)
 
 
 def match_jobs(user_skills, jobs):
     """Score each job against the student's extracted skills.
 
-    Matching is done case-insensitively (via skills.normalize) so a job
-    posting that lists "sql" and a CV that lists "SQL" still match -- the
-    exact casing a skill happens to be written in shouldn't matter.
+    Matching is case-insensitive (via skills.normalize) so a job posting
+    that lists "sql" and a CV that lists "SQL" still match -- the exact
+    casing a skill happens to be written in shouldn't matter.
     """
     user_skills_normalized = {normalize(s) for s in user_skills}
 
@@ -57,7 +47,9 @@ def match_jobs(user_skills, jobs):
             "match_score": match_score,
             "matched_skills": matched_skills,
             "missing_skills": missing_skills,
-            "url": job.get("url", "#")
+            "url": job.get("url", "#"),
+            "employment_type": job.get("employment_type", "Internship"),
+            "location": job.get("location", "Remote"),
         })
 
     matched_jobs.sort(key=lambda job: job["match_score"], reverse=True)
