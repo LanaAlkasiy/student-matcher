@@ -218,6 +218,35 @@ body {
 /* ── UPLOAD ────────────────────────────────────────────────── */
 .upload-section { padding: 88px 0; border-top: 1px solid var(--border-soft); }
 .section-header-center { text-align: center; margin-bottom: 36px; }
+.location-selector {
+    max-width: 690px;
+    margin: 24px auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  }
+  
+  .location-selector label {
+    font-weight: 700;
+    color: #111827;
+  }
+  
+  .location-selector select {
+    min-width: 190px;
+    border: 1px solid #d1d5db;
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-weight: 600;
+    background: #f9fafb;
+    cursor: pointer;
+  }
 .upload-card {
   background: var(--surface); border: 2px dashed var(--border);
   border-radius: var(--radius-2xl); padding: 52px 36px;

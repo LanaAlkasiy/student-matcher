@@ -106,7 +106,15 @@
         <h2 class="section-title">Upload your CV</h2>
         <p class="section-desc">Supports PDF, DOC, and DOCX. Your data is never stored or shared.</p>
       </div>
-
+      <div class="location-selector">
+        <label for="countrySelect">Preferred Location</label>
+        <select id="countrySelect">
+            <option value="qa">Qatar</option>
+            <option value="ae">UAE</option>
+            <option value="sa">Saudi Arabia</option>
+            <option value="us" selected>United States</option>
+        </select>
+      </div>
       <div class="upload-card" id="uploadCard">
         <input type="file" id="cvInput" accept=".pdf,.doc,.docx" hidden />
         <div class="upload-idle" id="uploadIdle">
@@ -482,8 +490,13 @@
     submitBtn.addEventListener('click', async () => {
       if (!selectedFile) return;
       setLoading(true);
+
       const fd = new FormData();
       fd.append('cv', selectedFile);
+
+      const countrySelect = document.getElementById('countrySelect');
+      fd.append('country', countrySelect.value);
+      
       try {
         const res = await fetch(ENDPOINT, { method: 'POST', body: fd });
         if (!res.ok) throw new Error(`Server error ${res.status}`);
@@ -563,14 +576,69 @@
 
       // --- AI Career Coach ---
       const courseMap = {
-        'SQL': { name: 'SQL for Data Analysis', provider: 'Coursera', duration: '4 hours', color: '#1565c0' },
-        'Excel': { name: 'Excel Skills for Business', provider: 'Coursera', duration: '6 hours', color: '#1b5e20' },
-        'Data Analysis': { name: 'Google Data Analytics Certificate', provider: 'Coursera', duration: '8 weeks', color: '#ea4335' },
-        'JavaScript': { name: 'JavaScript Essentials', provider: 'Cisco', duration: '10 hours', color: '#f7df1e' },
-        'Git': { name: 'Git & GitHub Crash Course', provider: 'Udemy', duration: '3 hours', color: '#f05032' },
-        'Python': { name: 'Python for Everybody', provider: 'Coursera', duration: '6 weeks', color: '#3776ab' },
-        'Machine Learning': { name: 'Machine Learning Specialization', provider: 'Coursera', duration: '3 months', color: '#ff6f00' },
-        'Statistics': { name: 'Statistics with Python', provider: 'Coursera', duration: '5 weeks', color: '#7b1fa2' },
+        'SQL': {
+          name: 'SQL for Data Analysis',
+          provider: 'Coursera',
+          duration: '8 weeks',
+          color: '#3b82f6',
+          url: 'https://www.coursera.org/learn/sql-for-data-science'
+        },
+      
+        'Excel': {
+          name: 'Excel Skills for Business',
+          provider: 'Coursera',
+          duration: '6 weeks',
+          color: '#10b981',
+          url: 'https://www.coursera.org/specializations/excel'
+        },
+      
+        'Data Analysis': {
+          name: 'Google Data Analytics Certificate',
+          provider: 'Coursera',
+          duration: '6 months',
+          color: '#f59e0b',
+          url: 'https://www.coursera.org/professional-certificates/google-data-analytics'
+        },
+      
+        'JavaScript': {
+          name: 'JavaScript Essentials',
+          provider: 'Cisco',
+          duration: '20 hours',
+          color: '#eab308',
+          url: 'https://www.netacad.com/courses/javascript-essentials'
+        },
+      
+        'Git': {
+          name: 'Git & GitHub Crash Course',
+          provider: 'Udemy',
+          duration: '4 hours',
+          color: '#f97316',
+          url: 'https://www.udemy.com/course/git-and-github-crash-course/'
+        },
+      
+        'Python': {
+          name: 'Python for Everybody',
+          provider: 'Coursera',
+          duration: '6 weeks',
+          color: '#22c55e',
+          url: 'https://www.coursera.org/specializations/python'
+        },
+      
+        'Machine Learning': {
+          name: 'Machine Learning Specialization',
+          provider: 'Coursera',
+          duration: '3 months',
+          color: '#8b5cf6',
+          url: 'https://www.coursera.org/specializations/machine-learning-introduction'
+        },
+      
+        'Statistics': {
+          name: 'Statistics with Python',
+          provider: 'Coursera',
+          duration: '5 weeks',
+          color: '#06b6d4',
+          url: 'https://www.coursera.org/specializations/statistics-with-python'
+        }
       };
 
       if (topJob) {
@@ -604,17 +672,43 @@
           <div class="roadmap-step"><span class="rs-num">3</span><span>Build a project using ${m[0] || 'your new skills'}</span></div>`;
 
         // Courses (left panel)
-        const courseRecs = document.getElementById('courseRecommendations');
-        courseRecs.innerHTML = '';
-        topJob.missing_skills.slice(0, 3).forEach(skill => {
-          const c = courseMap[skill] || { name: skill + ' Fundamentals', provider: 'Online', duration: 'Self-paced', color: '#666' };
-          const div = document.createElement('div');
-          div.className = 'course-item';
-          div.innerHTML = `<span class="course-dot" style="background:${c.color}"></span><span>${c.name} — <em>${c.provider}</em></span>`;
-          courseRecs.appendChild(div);
-        });
+        // Courses (left panel)
+const courseRecs = document.getElementById('courseRecommendations');
+courseRecs.innerHTML = '';
 
-        // --- Sidebar: Top Match ---
+const courseSkills =
+    topJob.missing_skills && topJob.missing_skills.length > 0
+        ? topJob.missing_skills.slice(0, 3)
+        : [];
+
+        if (courseSkills.length === 0) {
+          courseRecs.innerHTML = `
+              <div class="course-empty">
+                  <strong>No skill gaps detected 🎉</strong>
+                  <p>You already match the key requirements for this role.</p>
+              </div>
+          `;
+      } else {
+
+courseSkills.forEach(skill => {
+  const c = courseMap[skill] || {
+    name: skill + " Fundamentals",
+    provider: "Coursera",
+    color: "#22c55e"
+  };
+  
+  const div = document.createElement('div');
+  div.className = 'course-item';
+  div.innerHTML = `
+    <span class="course-dot" style="background:${c.color}"></span>
+    <strong>${c.name}</strong>
+    <small>${c.provider}</small>
+  `;
+
+  courseRecs.appendChild(div);
+});
+      }
+  // --- Sidebar: Top Match ---
         renderSidebarTopMatch(topJob, skills);
         const viewBtn = document.getElementById("viewTopOpportunityBtn");
         viewBtn.onclick = () => {
@@ -685,7 +779,18 @@
     function renderSidebarCourses(missingSkills, courseMap) {
       const el = document.getElementById('sidebarCourses');
       el.innerHTML = '';
-      missingSkills.slice(0, 3).forEach(skill => {
+      const skillsToShow = missingSkills.slice(0, 3);
+      if (skillsToShow.length === 0) {
+        el.innerHTML = `
+          <div class="course-empty">
+            <strong>No skill gaps detected 🎉</strong>
+            <p>You already match the key requirements for this role.</p>
+          </div>
+        `;
+        return;
+      }
+
+      skillsToShow.forEach(skill => {
         const c = courseMap[skill] || { name: skill + ' Fundamentals', provider: 'Online', duration: 'Self-paced', color: '#18a06a' };
         const row = document.createElement('div');
         row.className = 'sidebar-course-row';
@@ -699,7 +804,7 @@
           </div>
           <div class="sc-right">
             <span class="sc-dur">${c.duration}</span>
-            <button class="sc-btn" onclick="return false;">View</button>
+            <button class="sc-btn" onclick="window.open('${c.url}', '_blank')">View</button>
           </div>`;
         el.appendChild(row);
       });
