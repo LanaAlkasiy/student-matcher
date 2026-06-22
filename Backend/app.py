@@ -9,7 +9,7 @@ from recommender import recommend_courses
 from career_coach import generate_coaching
 
 app = Flask(__name__)
-CORS(app, origins=["http://127.0.0.1:5500", "http://localhost:5500"])
+CORS(app)
 
 MAX_CV_BYTES = 10 * 1024 * 1024  # 10 MB -- the frontend *hints* at this limit
                                   # but never enforced it server-side before.
