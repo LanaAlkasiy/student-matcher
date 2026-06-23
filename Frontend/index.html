@@ -720,7 +720,7 @@ courseSkills.forEach(skill => {
         };
 
         // --- Sidebar: Courses ---
-        renderSidebarCourses(topJob.missing_skills, courseMap);
+        renderSidebarCourses(topJob.missing_skills, courseMap, data.course_recommendations || []);
 
         // --- Sidebar: Tips ---
         renderSidebarTips(skills);
@@ -776,11 +776,13 @@ courseSkills.forEach(skill => {
       });
     }
 
-    function renderSidebarCourses(missingSkills, courseMap) {
+    function renderSidebarCourses(missingSkills, courseMap, backendCourses = []) {
       const el = document.getElementById('sidebarCourses');
       el.innerHTML = '';
-      const skillsToShow = missingSkills.slice(0, 3);
-      if (skillsToShow.length === 0) {
+    
+      const coursesToShow = backendCourses.length > 0 ? backendCourses : [];
+    
+      if (coursesToShow.length === 0) {
         el.innerHTML = `
           <div class="course-empty">
             <strong>No skill gaps detected 🎉</strong>
@@ -789,23 +791,25 @@ courseSkills.forEach(skill => {
         `;
         return;
       }
-
-      skillsToShow.forEach(skill => {
-        const c = courseMap[skill] || { name: skill + ' Fundamentals', provider: 'Online', duration: 'Self-paced', color: '#18a06a' };
+    
+      coursesToShow.slice(0, 3).forEach(c => {
         const row = document.createElement('div');
         row.className = 'sidebar-course-row';
+    
         row.innerHTML = `
-          <div class="sc-icon" style="background:${c.color}22;color:${c.color}">
-            ${skill.charAt(0).toUpperCase()}
+          <div class="sc-icon" style="background:${c.color || '#22c55e'}22;color:${c.color || '#22c55e'}">
+            ${(c.skill || c.name || '?').charAt(0).toUpperCase()}
           </div>
           <div class="sc-info">
             <span class="sc-name">${c.name}</span>
-            <span class="sc-meta">${c.provider}</span>
+            <span class="sc-meta">${c.provider || 'Online'}</span>
           </div>
           <div class="sc-right">
-            <span class="sc-dur">${c.duration}</span>
-            <button class="sc-btn" onclick="window.open('${c.url}', '_blank')">View</button>
-          </div>`;
+            <span class="sc-dur">${c.duration || 'Self-paced'}</span>
+            <button class="sc-btn" onclick="window.open('${c.url || '#'}', '_blank')">View</button>
+          </div>
+        `;
+    
         el.appendChild(row);
       });
     }

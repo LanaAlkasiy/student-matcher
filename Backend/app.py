@@ -10,7 +10,12 @@ from career_coach import generate_coaching
 
 app = Flask(__name__)
 CORS(app)
-
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    return response
 MAX_CV_BYTES = 10 * 1024 * 1024  # 10 MB -- the frontend *hints* at this limit
                                   # but never enforced it server-side before.
 
